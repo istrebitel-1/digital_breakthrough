@@ -101,7 +101,7 @@ function Dashboard(){
         url: "/piechart",
     }).done(function (data) {
         data=JSON.parse(data);
-        Dashboard_diagrams(data);
+        Dashboard_diagrams(data.data);
     });
     let buttons=document.getElementsByClassName('menu_btn');
     for (let i=0; i<buttons.length; i++){
