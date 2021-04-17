@@ -116,3 +116,16 @@ def piechart():
 
     del json_inf.data[-1]
     return(jsonify(json_inf.dict()))
+
+
+def checkbox_report():
+    return(jsonify(get_data(
+        "select "
+            "acc_year::varchar(4),"
+            "org_name,"
+            "training_direction_name,"
+            "orphan,"
+            "disabled,"
+            "sport_ach "
+        "from dwh.big_rep "
+    )))

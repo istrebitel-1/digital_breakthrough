@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, send_from_directory
 import os
 from models.models import (login_emp, spo_select, prof_select, student_qnt, 
-    orgs_qnt, piechart)
+    orgs_qnt, piechart, checkbox_report)
 
 
 app = Flask(__name__)
@@ -90,5 +90,17 @@ def piechart_get():
     except Exception as e:
         print(e)
         return 'internal server error, please contact system administrator'
+
+
+# Отчёт с выборкой
+@app.route('/big_rep', methods=['GET'])
+def big_rep():
+    try:
+        return checkbox_report()
+    except Exception as e:
+        print(e)
+        return 'internal server error, please contact system administrator'
+
+
 if __name__ == "__main__":
     app.run(debug=True, host='127.0.0.1', port='5000')
