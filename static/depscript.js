@@ -44,9 +44,7 @@ function login_check(){
                             <select class="form-control selects" onchange="MenuSwitch(this)">
                                 <option value="defaultfunction()">Выберите тип запроса</option>
                                 <option value="student_count()">Количество обучающихся по определенной профессии</option>
-                                <option value="priziv_count()">Количество обучающихся мужского пола допризывного
-                                возраста, которые в рамках осваиваемой профессии получают
-                                водительское удостоверение категории «В».</option>
+                                <option value="priziv_count()">Обучающиеся муж пола допризывного возраста, которые получают водительское удост категории «В»</option>
                                 <option value="lgota_count()">Количество детей-сирот и студентов с инвалидностью</option>
                                 <option value="kommision_report()">Отчет о приемной комиссии</option>
                             </select>
@@ -95,7 +93,7 @@ function student_count(){
                     </div>
                 </div>`;
     document.getElementById("reports").innerHTML=html_obj;
-    var link = ""; 
+    var link = "http://26.173.145.160:8080/jasperserver/rest_v2/reports/reports/Digital_breakthrough/forma2.html"; 
     var iframe = document.createElement('iframe');
     frameborder=0;
     iframe.width="100%";
@@ -175,7 +173,7 @@ function priziv_count(){
                     </div>
                 </div>`;
     document.getElementById("reports").innerHTML=html_obj;
-    var link = ""; 
+    var link = "http://26.173.145.160:8080/jasperserver/rest_v2/reports/reports/Digital_breakthrough/forma3.html"; 
     var iframe = document.createElement('iframe');
     frameborder=0;
     iframe.width="100%";
@@ -233,7 +231,7 @@ function lgota_count(){
                     </div>
                 </div>`;
     document.getElementById("reports").innerHTML=html_obj;
-    var link = ""; 
+    var link = "http://26.173.145.160:8080/jasperserver/rest_v2/reports/reports/Digital_breakthrough/forma4.html"; 
     var iframe = document.createElement('iframe');
     frameborder=0;
     iframe.width="100%";
@@ -267,7 +265,7 @@ function kommision_report(){
                     <div class='col-12 col-lg-8'>
                         <span>Учебное заведение</span>
                         <select class="form-control selects" id='SPO_select'>
-                            <option value="all">все</option>
+                            <option value="0">все</option>
                         </select>
                     </div>
                     <div class='col-12 col-lg-4'>
