@@ -73,3 +73,10 @@ def student_qnt():
             "on fe2.enrollee_id = fda.enrollee_id "
             "and fe2.student = true"
     )))
+
+
+# Подсчёт кол-ва учреждений
+def orgs_qnt():
+    return(jsonify(get_data(
+        "select count(*) from dwh.dim_organizations_and_branches"
+    )))

@@ -1,18 +1,20 @@
 from flask import Flask, render_template, request, send_from_directory
 import os
-from models.models import login_emp, spo_select, prof_select, student_qnt
+from models.models import (login_emp, spo_select, prof_select, student_qnt, 
+    orgs_qnt)
 
 
 app = Flask(__name__)
 
 
-@app.route('/')
+# Панель абитуриента
+@app.route('/user')
 def index():
     return render_template("index.html")
 
 
 # Панель для работников департамента
-@app.route('/admin')
+@app.route('/')
 def admin_panel():
     return render_template('depadmin.html')
 
@@ -65,6 +67,16 @@ def prof_sel():
 def st_qnt():
     try:
         return student_qnt()
+    except Exception as e:
+        print(e)
+        return 'internal server error, please contact system administrator'
+
+
+# Подсчёт кол-ва учреждений
+@app.route('/count_spo', methods=['GET'])
+def spo_qnt():
+    try:
+        return orgs_qnt()
     except Exception as e:
         print(e)
         return 'internal server error, please contact system administrator'
