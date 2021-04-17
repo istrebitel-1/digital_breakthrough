@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, send_from_directory
 import os
-from models.models import login_emp, spo_select, prof_select
+from models.models import login_emp, spo_select, prof_select, student_qnt
 
 
 app = Flask(__name__)
@@ -58,6 +58,17 @@ def prof_sel():
     except Exception as e:
         print(e)
         return 'internal server error, please contact system administrator'
+
+
+# Подсчёт кол-ва студентов
+@app.route('/count_students', methods=['GET'])
+def st_qnt():
+    try:
+        return student_qnt()
+    except Exception as e:
+        print(e)
+        return 'internal server error, please contact system administrator'
+
 
 if __name__ == "__main__":
     app.run(debug=True, host='127.0.0.1', port='5000')

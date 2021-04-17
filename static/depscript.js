@@ -23,13 +23,19 @@ function cl_date_PDF(){
 function Dashboard(){
     let student, spo;
     $.ajax({
-        url: "/dashboard",
+        url: "/count_students",
     }).done(function (data) {
         data=JSON.parse(data);
-        student=data[0][0];
-        spo=data[1][0];
+        student = data[0][0];
+        console.log(student);
     });
-
+    $.ajax({
+        url: "/count_spo",
+    }).done(function (data) {
+        data=JSON.parse(data);
+        spo = data[0][0];
+    });
+    
     html_obj=`
             <div class='row' id='dashboard'>
                     <div class='col-12 mt-3 ml-5 text-left'>

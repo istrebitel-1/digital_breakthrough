@@ -41,6 +41,7 @@ def login_emp(login, password):
         return 'wrong'
 
 
+# Выборка СПО
 def spo_select():
     return(jsonify(get_data(
         "select "
@@ -50,10 +51,25 @@ def spo_select():
     )))
 
 
+# Выборка направлений подготовки
 def prof_select():
     return(jsonify(get_data(
         "select "
             "td.training_direction_id, "
             "td.training_direction_name "
         "from dwh.dim_training_direction td"
+    )))
+
+
+# Подсчёт кол-ва студентов
+def student_qnt():
+    return(jsonify(get_data(
+        "select "
+            "count(fe.enrollment_id) "
+        "from dwh.fct_enrollment fe "
+        "left join dwh.fct_documents_acceptance fda "
+            "on fda.document_acceptance_id = fe.document_acceptance_id "
+        "left join dwh.fct_enrollee fe2 "
+            "on fe2.enrollee_id = fda.enrollee_id "
+            "and fe2.student = true"
     )))
