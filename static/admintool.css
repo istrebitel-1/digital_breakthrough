@@ -121,15 +121,16 @@ iframe{
 }
 
 .btn-funct{
-    border: 2px solid #003566;
-    background-color: #003566;
-    color: #FDFDFF;
+    border: 2px solid #FFC300;
+    background-color: #FFC300;
+    color: #000814;
 }
 .btn-funct:hover{
-    background-color: #FDFDFF;
-    color: #003566;
+    background-color: transparent;
 }
-
+.col-12 .btn-funct{
+    width: 30%;
+}
 .btn-docx{
     background: #6b5de7;
     border: 2px solid #6b5de7;
