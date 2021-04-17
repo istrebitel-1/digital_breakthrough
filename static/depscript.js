@@ -185,7 +185,7 @@ function login_check(){
         }else{
             document.getElementById('admin_login_check').style.display='none';
             document.getElementById('admin_login_site').style.display='block';
-            Dashboard();
+            //Dashboard();
         }
     });
 }
