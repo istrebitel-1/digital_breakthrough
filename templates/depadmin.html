@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>case7</title> 
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../static/admintool.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">  
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&family=Rubik&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class='container h-100' id='admin_login_check'>
+        <div class='row h-100 justify-content-center align-items-center'>
+            <div class='col-4 vhod'>
+                <div class='row'>
+                    <div class='col-12 text-center mt-2'>
+                        <span class='bodyItem'>Admin&nbsp;panel&nbsp;<i class="fa fa-lock"></i></span>
+                    </div>
+                    <div class='col-12 text-center'>
+                        <span class='bodyItem'>Only&nbsp;for&nbsp;Desktop&nbsp;<i class="fa fa-desktop"></i></span>
+                    </div>
+                    <div class='col-12 text-center'>        
+                        <label input for="InputLogin">Username</label>
+                        <i class="fa fa-user icon"></i>
+                        <input id="InputLogin" type='text' class="form-control" placeholder="Username">
+                        <label for="InputPassword">Password</label>
+                        <i class="fa fa-key icon"></i>
+                        <input type="password" class="form-control" id="InputPassword" placeholder="Password">
+                        <button  class="btn btn-login mt-4 mb-4" type="button" onclick="login_check()">Вход</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class='homepage' id='admin_login_site'>
+        <div class='container'>
+            <div class='row justify-content-center align-items-center' id='admin_act'></div>
+        </div>
+        <div class='container mt-5 mb-2' id='reports'></div>
+    </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<script src="../static/depscript.js" type="text/javascript"></script>
+</body>
+</html>
