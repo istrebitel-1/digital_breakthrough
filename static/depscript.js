@@ -22,19 +22,6 @@ function cl_date_PDF(){
 
 function Dashboard(){
     let student, spo;
-    $.ajax({
-        url: "/count_students",
-    }).done(function (data) {
-        data=JSON.parse(data);
-        student = data[0][0];
-        console.log(student);
-    });
-    $.ajax({
-        url: "/count_spo",
-    }).done(function (data) {
-        data=JSON.parse(data);
-        spo = data[0][0];
-    });
     
     html_obj=`
             <div class='row' id='dashboard'>
@@ -54,7 +41,7 @@ function Dashboard(){
                                         <div class='col-6 text-right'>
                                             <div class='dashboardText mr-5 mt-3 mb-4'>
                                                 <span class='dashboardText__head'>Cтуденты</span><br>
-                                                <span class='dashboardText__item'>`+student+`</span>
+                                                <span class='dashboardText__item' id='student_insert'></span>
                                             </div>
                                         </div>
                                     </div>
@@ -71,7 +58,7 @@ function Dashboard(){
                                         <div class='col-6 text-right'>
                                             <div class='dashboardText mr-5 mt-3 mb-4'>
                                                 <span class='dashboardText__head'>Учебные заведения</span><br>
-                                                <span class='dashboardText__item'>`+spo+`</span>
+                                                <span class='dashboardText__item' id='spo_insert'></span>
                                             </div>
                                         </div>
                                     </div>
@@ -95,6 +82,21 @@ function Dashboard(){
                     </div>
                 </div>`;
     document.getElementById('admin_act').innerHTML=html_obj;
+    $.ajax({
+        url: "/count_students",
+    }).done(function (data) {
+        data=JSON.parse(data);
+        student = data[0][0];
+        document.getElementById('student_insert').innerHTML=student;
+    });
+    $.ajax({
+        url: "/count_spo",
+    }).done(function (data) {
+        data=JSON.parse(data);
+        spo = data[0][0];
+        document.getElementById('spo_insert').innerHTML=spo;
+    });
+
     $.ajax({
         url: "/piechart",
     }).done(function (data) {
