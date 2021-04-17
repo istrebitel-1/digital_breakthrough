@@ -1,10 +1,23 @@
+# pylint: disable=no-name-in-module
+# pylint: disable=no-self-argument
 import psycopg2
 import json
+from pydantic import BaseModel, ValidationError
 
 
 conn = psycopg2.connect(database="digital_breakthrough", user="postgres",
                         password="4432", host="26.173.145.160", port="5434")
 cursor = conn.cursor()
+
+
+class json_serializable(BaseModel):
+    data = [{}]
+
+    def add_features(self, name, value, id):
+        self.data[id][name] = value
+
+    def add_new_features_item(self):
+        self.data.append({})
 
 
 #
@@ -80,3 +93,26 @@ def orgs_qnt():
     return(jsonify(get_data(
         "select count(*) from dwh.dim_organizations_and_branches"
     )))
+
+
+# Круговая диаграмма кол-ва абитуриентов по годам
+def piechart():
+    data = get_data(
+        "select "
+            "count(fe.enrollment_id) qnt,"
+            "extract('year' from fe.enrollment_dttm) acc_year "
+        "from dwh.fct_enrollment fe "
+        "group by "
+            "extract('year' from fe.enrollment_dttm)"
+    )
+    json_inf = json_serializable()
+    object_id = 0
+
+    for i in range(0, len(data)):
+        json_inf.add_features("year", str(int(data[i][1])), i)
+        json_inf.add_features("students", data[i][0], i)
+        json_inf.add_new_features_item()
+        object_id += 1
+
+    del json_inf.data[-1]
+    return(jsonify(json_inf.dict()))

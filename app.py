@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, send_from_directory
 import os
 from models.models import (login_emp, spo_select, prof_select, student_qnt, 
-    orgs_qnt)
+    orgs_qnt, piechart)
 
 
 app = Flask(__name__)
@@ -82,5 +82,13 @@ def spo_qnt():
         return 'internal server error, please contact system administrator'
 
 
+# Даиграмма
+@app.route('/piechart', methods=['GET'])
+def piechart_get():
+    try:
+        return piechart()
+    except Exception as e:
+        print(e)
+        return 'internal server error, please contact system administrator'
 if __name__ == "__main__":
     app.run(debug=True, host='127.0.0.1', port='5000')
