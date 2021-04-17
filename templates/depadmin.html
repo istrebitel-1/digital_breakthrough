@@ -16,16 +16,16 @@
             <div class='col-4 vhod'>
                 <div class='row'>
                     <div class='col-12 text-center mt-2'>
-                        <span class='bodyItem'>Admin&nbsp;panel&nbsp;<i class="fa fa-lock"></i></span>
+                        <span class='bodyItem'>Рабочая&nbsp;среда&nbsp;<i class="fa fa-lock"></i></span>
                     </div>
                     <div class='col-12 text-center'>
-                        <span class='bodyItem'>Only&nbsp;for&nbsp;Desktop&nbsp;<i class="fa fa-desktop"></i></span>
+                        <span class='bodyItem'>Только&nbsp;для&nbsp;ПК&nbsp;<i class="fa fa-desktop"></i></span>
                     </div>
                     <div class='col-12 text-center'>        
-                        <label input for="InputLogin">Username</label>
+                        <label input for="InputLogin">Логин</label>
                         <i class="fa fa-user icon"></i>
                         <input id="InputLogin" type='text' class="form-control" placeholder="Username">
-                        <label for="InputPassword">Password</label>
+                        <label for="InputPassword">Пароль</label>
                         <i class="fa fa-key icon"></i>
                         <input type="password" class="form-control" id="InputPassword" placeholder="Password">
                         <button  class="btn btn-login mt-4 mb-4" type="button" onclick="login_check()">Вход</button>
@@ -35,11 +35,53 @@
         </div>
     </div>
     <div class='homepage' id='admin_login_site'>
-        <div class='container'>
-            <div class='row justify-content-center align-items-center' id='admin_act'></div>
+        <div class='jumbotron jumbotron-fluid'>
+            <div class='row justify-content-center'>
+                <div class="col-12 col-md-4 text-center">
+                    <img src='https://cdn.discordapp.com/attachments/824553156905533491/832723083860639744/3cc201723fe5da1c.png'>
+                </div>
+                <div class="col-12 col-md-8 text-left mt-4">
+                    <h3>Департамент профессионального образования<br>Томской области<br></h3>
+                </div>
+            </div>
         </div>
-        <div class='container mt-5 mb-2' id='reports'></div>
+        <div class='row'>
+            <div class='col-lg-2 col-xl-1 navbar'>
+                <div class='row'>
+                    <div class='col-12 menuElem text-center'>
+                        <button class='menu_btn mt-4 mb-4' onclick="Dashboard()" id='Dashboard_button'>
+                            <span class='menu_icon'>
+                                <i class="fa fa-level-up" aria-hidden="true"></i>
+                            </span><br>
+                            <span class='menu_text'>Главная</span>
+                        </button>
+                    </div>
+                    <div class='col-12 menuElem text-center'>
+                        <button class='menu_btn mt-4 mb-4' onclick="Reports()" id='Reports_button'>
+                            <span class='menu_icon'>
+                                <i class="fa fa-folder-o" aria-hidden="true"></i>
+                            </span><br>
+                            <span class='menu_text'>Готовые отчеты</span>
+                        </button>
+                    </div>
+                    <div class='col-12 menuElem text-center'>
+                        <button class='menu_btn mt-4 mb-4' onclick="DinamicReports()" id='DinamicReports_button'>
+                            <span class='menu_icon'>
+                                <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                            </span><br>
+                            <span class='menu_text'>Сформировать отчет</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class='col-lg-10 col-xl-11' id='admin_act'> 
+            </div>
+        </div>
     </div>
+<script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/themes/kelly.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
