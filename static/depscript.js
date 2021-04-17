@@ -21,7 +21,7 @@ function cl_date_PDF(){
 }  
 
 function login_check(){
-    /*let login=document.getElementById('InputLogin').value;
+    let login=document.getElementById('InputLogin').value;
     let password=document.getElementById('InputPassword').value;
     function ajaxRequest(){
     return $.ajax({
@@ -35,7 +35,7 @@ function login_check(){
     .done(function(data){
         if(data=='wrong'){
             alert('проверьте правильность логина и пароля');
-        }else{*/
+        }else{
             document.getElementById('admin_login_check').style.display='none';
             document.getElementById('admin_login_site').style.display='block';
             let elem=document.getElementById('admin_act');
@@ -52,8 +52,8 @@ function login_check(){
                             </select>
                         </div>`;
             elem.innerHTML=html_obj;
-       /* }
-    });*/
+        }
+    });
 }
 function MenuSwitch(elem){
     let SW=elem.options[elem.selectedIndex].value;
@@ -284,7 +284,7 @@ function kommision_report(){
                     </div>
                 </div>`;
     document.getElementById("reports").innerHTML=html_obj;
-    var link = ""; 
+    var link = "http://26.173.145.160:8080/jasperserver/rest_v2/reports/reports/Digital_breakthrough/forma1.html"; 
     var iframe = document.createElement('iframe');
     frameborder=0;
     iframe.width="100%";
@@ -299,8 +299,8 @@ function kommision_report(){
             n=document.getElementById('SPO_select').options.selectedIndex;
             SPO=document.getElementById('SPO_select').options[n].value;
             if (SPO=='all'){
-                document.getElementById('rep').src="";
+                document.getElementById('rep').src="http://26.173.145.160:8080/jasperserver/rest_v2/reports/reports/Digital_breakthrough/forma1.html";
             }else{
-                document.getElementById('rep').src="";
+                document.getElementById('rep').src="http://26.173.145.160:8080/jasperserver/rest_v2/reports/reports/Digital_breakthrough/forma1.html?org_name="+SPO+"";
             }
     }
