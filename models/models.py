@@ -129,3 +129,12 @@ def checkbox_report():
             "sport_ach "
         "from dwh.big_rep "
     )))
+
+
+# Список лет поступления
+def years():
+    return(jsonify(get_data(
+        "select distinct "
+           "extract('year' from fe.enrollment_dttm)::varchar(4) "
+        "from dwh.fct_enrollment fe"
+    )))

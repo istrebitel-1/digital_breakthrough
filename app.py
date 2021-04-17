@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, send_from_directory
 import os
 from models.models import (login_emp, spo_select, prof_select, student_qnt, 
-    orgs_qnt, piechart, checkbox_report)
+    orgs_qnt, piechart, checkbox_report, years)
 
 
 app = Flask(__name__)
@@ -102,5 +102,14 @@ def big_rep():
         return 'internal server error, please contact system administrator'
 
 
+# Получение списка лет поступления
+@app.route('/year_select', methods=['GET'])
+def year_select():
+    try:
+        return years()
+    except Exception as e:
+        print(e)
+        return 'internal server error, please contact system administrator'
+
 if __name__ == "__main__":
-    app.run(debug=True, host='127.0.0.1', port='5000')
+    app.run(debug=True, host='26.173.145.160', port='5000')
