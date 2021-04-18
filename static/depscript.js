@@ -88,21 +88,21 @@ function Dashboard(){
         data=JSON.parse(data);
         student = data[0][0];
         document.getElementById('student_insert').innerHTML=student;
+        $.ajax({
+            url: "/count_spo",
+        }).done(function (data) {
+            data=JSON.parse(data);
+            spo = data[0][0];
+            document.getElementById('spo_insert').innerHTML=spo;
+            $.ajax({
+                url: "/piechart",
+            }).done(function (data) {
+                data=JSON.parse(data);
+                Dashboard_diagrams(data.data);
+            });
+        });
     });
-    $.ajax({
-        url: "/count_spo",
-    }).done(function (data) {
-        data=JSON.parse(data);
-        spo = data[0][0];
-        document.getElementById('spo_insert').innerHTML=spo;
-    });
-
-    $.ajax({
-        url: "/piechart",
-    }).done(function (data) {
-        data=JSON.parse(data);
-        Dashboard_diagrams(data.data);
-    });
+    
     let buttons=document.getElementsByClassName('menu_btn');
     for (let i=0; i<buttons.length; i++){
         buttons[i].style.color='#000814';
@@ -161,7 +161,6 @@ function Reports(){
         buttons[i].style.color='#000814';
     }
     document.getElementById('Reports_button').style.color='#FFC300';
-    console.log(document.getElementById('Reports_button'));
 }
 window.onload= function(){
     document.getElementById('admin_login_check').style.display='block';
@@ -185,7 +184,7 @@ function login_check(){
         }else{
             document.getElementById('admin_login_check').style.display='none';
             document.getElementById('admin_login_site').style.display='block';
-            //Dashboard();
+            Dashboard();
         }
     });
 }
@@ -193,7 +192,6 @@ function MenuSwitch(elem){
     let SW=elem.options[elem.selectedIndex].value;
     switch (SW){
         case "student_count()": student_count(); break;
-        case "priziv_count()": priziv_count(); break;
         case "lgota_count()": lgota_count(); break;
         case "kommision_report()": kommision_report(); break;
         case "defaultfunction()": break;
@@ -245,8 +243,7 @@ function student_count(){
                 </div>`;
     div.innerHTML=html_obj;
     document.getElementById("reports").appendChild(div);   
-    SPO_select();
-    Proffesion_select();
+    SPO_PROF();
 }
 
 function SPO_select(){
@@ -268,6 +265,24 @@ function Proffesion_select(){
         for (let i=0; i<data.length; i++){
             $('#Proffesion_select').append("<option value="+data[i][0]+">"+data[i][1]+"</option>");
         }
+    });
+}
+function SPO_PROF(){
+    $.ajax({
+        url: "/SPO_select",
+    }).done(function (data) {
+        data=JSON.parse(data);
+        for (let i=0; i<data.length; i++){
+            $('#SPO_select').append("<option value="+data[i][0]+">"+data[i][1]+"</option>");
+        }
+        $.ajax({
+            url: "/Proffesion_select",
+        }).done(function (data) {
+            data=JSON.parse(data);
+            for (let i=0; i<data.length; i++){
+                $('#Proffesion_select').append("<option value="+data[i][0]+">"+data[i][1]+"</option>");
+            }
+        });
     });
 }
     function Switch_student_count(){
@@ -333,8 +348,7 @@ function lgota_count(){
     </div>`;
     div.innerHTML=html_obj;
     document.getElementById("reports").appendChild(div);   
-    SPO_select();
-    Proffesion_select();
+    SPO_PROF();
 }
     function Switch_lgota_count(){
         let SPO, Profession, n;
@@ -404,3 +418,190 @@ function kommision_report(){
                 document.getElementById('rep').src="http://26.173.145.160:8080/jasperserver/rest_v2/reports/reports/Digital_breakthrough/forma1.html?org_name="+SPO+"";
             }
     }
+function DinamicReports(){
+    html_obj=`<div class='row DinamicReportsPage mt-5'>
+                <div class='col-12 mt-3 ml-5 text-left'>
+                    <span class='oglavlenie'>Сформировать отчет</span>
+                </div>
+                <div class='col-12 text-center'>
+                    <div class='card full ml-5 mt-3'>
+                        <div class='row'>
+                            <div class='col-12 text-center mb-5'>
+                                <span class='dashboardText__head'>Для формирования отчета выберите параметры<i class="fa fa-check icon" aria-hidden="true"></i></span>
+                            </div>
+                            <div class='col-12 col-lg-6 text-center'>
+                                <span>Учебное заведение</span>
+                                <select class="form-control selects ml-2" id='SPO_select'>
+                                </select>
+                            </div>
+                            <div class='col-12 col-lg-6 text-center'>
+                                <span>Направление подготовки</span>
+                                <select class="form-control selects mr-2" id='Proffesion_select'>
+                                    <option value="all">все</option>
+                                </select>
+                            </div>
+                            <div class='col-12 col-lg-3 text-center'>
+                                <span>Дата поступления</span>
+                                <select class="form-control selects ml-2" id='Abitur_date_select'>
+                                    <option value="all">все</option>
+                                </select>
+                            </div>
+                            <div class='col-6 col-lg-3 text-center'>
+                                <form class='form-inline mt-4'>
+                                    <input type="checkbox" class="form-check-input" id="invalid">
+                                    <span class='mr-2'>инвалиды</span>
+                                </form>
+                            </div>
+                            <div class='col-6 col-lg-3 text-center'>
+                                <form class='form-inline mt-4'>
+                                    <input type="checkbox" class="form-check-input" id="siroti">
+                                    <span class='mr-2'>сироты</span>
+                                </form>
+                            </div>
+                            <div class='col-6 col-lg-3 text-center'>
+                                <form class='form-inline mt-4'>
+                                    <input type="checkbox" class="form-check-input" id="sport">
+                                    <span class='mr-2'>спортивные достижения</span>
+                                </form>
+                            </div>
+                            <div class='col-12 text-center'>
+                                <button class='btn-funct btn mt-4 built-btn' onclick='DataToBuilt()'>Построить</button>
+                            </div>
+                            <div class='col-12' id='table_insert'></div>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+    document.getElementById('admin_act').innerHTML=html_obj;
+    let buttons=document.getElementsByClassName('menu_btn');
+    for (let i=0; i<buttons.length; i++){
+        buttons[i].style.color='#000814';
+    }
+    document.getElementById('DinamicReports_button').style.color='#FFC300';
+
+    $.ajax({
+        url: "/SPO_select",
+    }).done(function (data) {
+        data=JSON.parse(data);
+        for (let i=0; i<data.length; i++){
+            $('#SPO_select').append("<option value="+data[i][0]+">"+data[i][1]+"</option>");
+        }
+        $.ajax({
+            url: "/Proffesion_select",
+        }).done(function (data) {
+            data=JSON.parse(data);
+            for (let i=0; i<data.length; i++){
+                $('#Proffesion_select').append("<option value="+data[i][0]+">"+data[i][1]+"</option>");
+            }
+            $.ajax({
+                url: "/year_select",
+            }).done(function (data) {
+                data=JSON.parse(data);
+                for (let i=0; i<data.length; i++){
+                    $('#Abitur_date_select').append("<option>"+data[i][0]+"</option>");
+                }
+            });
+        });
+    });
+}
+function DataToBuilt(){
+    let spo, proffesion, year, invalid, sirota, sport;
+    var n = document.getElementById('SPO_select').options.selectedIndex;
+    spo = document.getElementById('SPO_select').options[n].text;
+    n = document.getElementById('Proffesion_select').options.selectedIndex;
+    proffesion = document.getElementById('Proffesion_select').options[n].text;
+    n = document.getElementById('Abitur_date_select').options.selectedIndex;
+    year = document.getElementById('Abitur_date_select').options[n].text;
+    invalid= document.getElementById('invalid').checked;
+    sirota= document.getElementById('siroti').checked;
+    sport= document.getElementById('sport').checked;
+    let k=2;
+    if (invalid){
+        k++;
+    }
+    if (sirota){
+        k++;
+    }
+    if (sport){
+        k++;
+    }
+
+    $.ajax({
+        url: "/big_rep",
+    }).done(function (data) {
+        data=JSON.parse(data);
+
+html_obj=`  <table id="testTable" rules="groups" frame="hsides" class="table">
+                <thead> 
+                    <tr>
+                        <th colspan='`+k+`'>`+spo+`</th>
+                    </tr>           
+                    <tr>
+                        <th scope="col">Направление</th>
+                        <th scope="col">Год поступления</th>`;
+                        if (invalid){
+                            html_obj+=`<th scope="col">Инвалиды</th>`;
+                        }
+                        if (sirota){
+                            html_obj+=`<th scope="col">Сироты</th>`;
+                        }
+                        if (sport){
+                            html_obj+=`<th scope="col">Спортивных достижений</th>`;
+                        }
+html_obj+=`         </tr>            
+                </thead>
+                <tbody>`;
+        for (i=0;i<data.length; i++){
+            if (data[i][1]==spo){
+                flag=0;
+                if ((proffesion!='все' && data[i][2]==proffesion) && (year!='все' && data[i][0]==year)){
+                    html_obj+=`<tr>`;
+                    html_obj+=`<td>`+proffesion+`</td>`;
+                    html_obj+=`<td>`+year+`</td>`;
+                }else if(proffesion=='все' && year=='все'){
+                    html_obj+=`<tr>`;
+                    html_obj+=`<td>`+data[i][2]+`</td>`;
+                    html_obj+=`<td>`+data[i][0]+`</td>`;
+                } else if (proffesion=='все' && (year!='все' && data[i][0]==year)){
+                    html_obj+=`<tr>`;
+                    html_obj+=`<td>`+data[i][2]+`</td>`;
+                    html_obj+=`<td>`+year+`</td>`;
+                }else if(year=='все' && (proffesion!='все' && data[i][2]==proffesion)){
+                    html_obj+=`<tr>`;
+                    html_obj+=`<td>`+proffesion+`</td>`;
+                    html_obj+=`<td>`+data[i][0]+`</td>`;
+                }else{
+                    flag=1;
+                }
+                if (flag==0){
+                    if (invalid){
+                        html_obj+=`<td>`+data[i][3]+`</td>`;
+                    }
+                    if (sirota){
+                        html_obj+=`<td>`+data[i][4]+`</td>`;
+                    }
+                    if (sport){
+                        html_obj+=`<td>`+data[i][5]+`</td>`;
+                    }
+                    html_obj+=`</tr>`;
+                }
+                
+            }
+        }
+html_obj+=`     </tbody>            
+            </table>
+            <input type="button" onclick="tableToExcel('testTable', 'W3C Example Table')" value="Скачать" class='btn-funct btn mt-4 built-btn'>`;
+    document.getElementById('table_insert').innerHTML=html_obj;
+    });
+}
+var tableToExcel = (function() {
+    var uri = 'data:application/vnd.ms-excel;base64,'
+      , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'
+      , base64 = function(s) { return window.btoa(unescape(encodeURIComponent(s))) }
+      , format = function(s, c) { return s.replace(/{(\w+)}/g, function(m, p) { return c[p]; }) }
+    return function(table, name) {
+      if (!table.nodeType) table = document.getElementById(table)
+      var ctx = {worksheet: name || 'Worksheet', table: table.innerHTML}
+      window.location.href = uri + base64(format(template, ctx))
+    }
+  })()
