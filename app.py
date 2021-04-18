@@ -112,4 +112,4 @@ def year_select():
         return 'internal server error, please contact system administrator'
 
 if __name__ == "__main__":
-    app.run(debug=True, host='26.173.145.160', port='5000')
+    app.run(debug=True)

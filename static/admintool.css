@@ -128,7 +128,7 @@ iframe{
 .btn-funct:hover{
     background-color: transparent;
 }
-.col-12 .btn-funct{
+.built-btn{
     width: 30%;
 }
 .btn-docx{
